@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8"/>
+    <title>SixArm jQuery UI Demo</title>
+    <link rel="stylesheet" type="text/css" href="lib/jqueryui/1.8.16/css/smoothness/jquery-ui.css" media="all" />
+    <script type="text/javascript" src="lib/jquery/1.7.1/jquery.min.js"> </script>
+    <script type="text/javascript" src="lib/jqueryui/1.8.16/jquery-ui.min.js"> </script>
+    <style>
+      body {
+        font-family:Arial,Helvetica,sans-serif;
+      }
+      h2 {
+      }
+      .demo {
+        padding-top: 2em;
+        padding-bottom: 2em;
+        clear:both;
+        width: 600px;
+      }
+    </style>
+
+  </head>
+
+  <body>
+
+    <h1>SixArm jQuery UI Demo</h1>
+
+    <p>This page demonstrates jQuery UI toolkit programming .</p>
+
+    <!-- BEGIN TABS SECTION -->
+
+    <div class="demo">
+
+      <h2>Tabs</h2>
+
+      <script>
+
+	$(function() {
+          $( "#tabs" ).tabs();
+	});
+
+      </script>
+
+      <style>
+
+	#tabs{
+          height: 180px;
+	}
+
+      </style>
+
+      <div id="tabs">
+
+	<ul>
+          <li><a href="#tabs-1">First Tab</a></li>
+          <li><a href="#tabs-2">Second Tab</a></li>
+          <li><a href="#tabs-3">Third Tab</a></li>
+          <li><a href="#tabs-4">Fourth Tab</a></li>
+	</ul>
+	
+	<div id="tabs-1"><p>First section of content goes here.</p></div>
+	<div id="tabs-2"><p>Second section of content goes here.</p></div>
+	<div id="tabs-3"><p>Third section of content goes here.</p></div>
+	<div id="tabs-4"><p>Third section of content goes here.</p></div>
+	
+      </div>
+
+    </div>
+
+    <!-- END TABS SECTION -->
+
+
+    <!-- BEGIN ACCORDION SECTION -->
+
+    <div class="demo">
+
+      <h2>Accordion</h2>
+
+      <script> 
+
+	$(function() {
+          $( "#accordion" ).accordion();
+	});
+
+      </script>
+      
+      <style>
+
+	#accordion{
+          height: 180px;
+	}
+
+      </style>
+      
+      <div id="accordion">
+
+	<h3><a href="#">First Section</a></h3>
+	<div><p>First section of content goes here.</p></div>
+
+	<h3><a href="#">Second Section</a></h3>
+	<div><p>Second section of content goes here.</p></div>
+
+	<h3><a href="#">Third Section</a></h3>
+	<div><p>Third section of content goes here.</p></div>
+
+	<h3><a href="#">Fourth Section</a></h3>
+	<div><p>Fourth section of content goes here.</p></div>
+
+      </div>
+
+      <br/><br/><br/>
+
+    </div>
+
+    <!-- END ACCORDION SECTION -->
+
+
+    <!-- BEGIN PROGRESS BAR SECTION -->
+
+    <div class="demo">
+
+      <h2>Progress Bar</h2>
+
+      <script>
+	
+	$(function() {
+          $( "#progressbar" ).progressbar({
+            value: 0
+          });
+          setTimeout(progressbar_update, 500);
+	});
+	
+	var progressbar_min = 0;
+	var progressbar_max = 100;
+	var progressbar_step = 1;
+	var progressbar_sleep = 100;
+
+	function progressbar_update() {
+          var i = $("#progressbar").progressbar("option","value");
+          i = (i == progressbar_max) ? progressbar_min : i + progressbar_step;
+          $("#progressbar").progressbar("option", "value", i);
+          setTimeout(progressbar_update, progressbar_sleep);
+ 	}
+
+      </script>
+
+      <div id="progressbar"> </div>
+
+    </div>
+
+    <!-- END PROGRESS BAR SECTION -->
+
+
+    <!-- BEGIN COLOR PICKER SECTION -->
+
+    <div class="demo">
+
+      <h2>Color Picker with Sliders</h2>
+
+      <style>
+
+        #colorpicker_red, #colorpicker_green, #colorpicker_blue {
+          float: left;
+          clear: left;
+          width: 400px;
+          margin: 8px 0 8px 0;
+          padding: 0px;
+        }
+
+        #colorpicker_swatch {
+          width: 100px;
+          height: 100px;
+          margin-left: 420px;
+          background-image: none;
+        }
+
+        #colorpicker_red .ui-slider-range { background: #ef2929; }
+        #colorpicker_red .ui-slider-handle { border-color: #ef2929; }
+
+        #colorpicker_green .ui-slider-range { background: #8ae234; }
+        #colorpicker_green .ui-slider-handle { border-color: #8ae234; }
+
+        #colorpicker_blue .ui-slider-range { background: #729fcf; }
+        #colorpicker_blue .ui-slider-handle { border-color: #729fcf; }
+
+      </style>
+
+      <script>
+
+        function hexFromRGB(r, g, b) {
+          var hex = [
+            r.toString( 16 ),
+            g.toString( 16 ),
+            b.toString( 16 )
+          ];
+          $.each( hex, function( nr, val ) {
+            if ( val.length === 1 ) {
+              hex[ nr ] = "0" + val;
+            }
+          });
+          return hex.join( "" ).toUpperCase();
+        }
+
+        function refreshSwatch() {
+          var red = $( "#colorpicker_red" ).slider( "value" );
+          var green = $( "#colorpicker_green" ).slider( "value" );
+          var blue = $( "#colorpicker_blue" ).slider( "value" );
+          var hex = hexFromRGB( red, green, blue );
+          $( "#colorpicker_swatch" ).css( "background-color", "#" + hex );
+        }
+
+        $(function() {
+        $( "#colorpicker_red, #colorpicker_green, #colorpicker_blue" ).slider({
+            orientation: "horizontal",
+            range: "min",
+            max: 255,
+            value: 127,
+            slide: refreshSwatch,
+            change: refreshSwatch
+          });
+          $( "#colorpicker_red" ).slider( "value", 60 );
+          $( "#colorpicker_green" ).slider( "value", 140 );
+          $( "#colorpicker_blue" ).slider( "value", 220 );
+        });
+
+      </script>
+  
+      <div id="colorpicker_red"> </div>
+      <div id="colorpicker_green"> </div>
+      <div id="colorpicker_blue"> </div>
+
+      <div id="colorpicker_swatch" class="ui-widget-content ui-corner-all"></div>
+
+      <div style="clear:left;"> </div>
+
+    </div>
+
+    <!-- END COLOR PICKER SECTION -->
+
+
+    <!-- BEGIN EFFECTS SECTION -->
+
+    <div class="demo">
+
+      <h2>Effects</h2>
+  
+      <style>
+        .toggler { margin: 0 0 0.5em 0; padding: 0; width: 450px; zheight: 170px; }
+        #button { padding: 0.2em 1em; text-decoration: none; }
+        #effect { width: 450px; zheight: 100px; position: relative; }
+        #effect h3 { margin: 0.2em; padding: 0.4em; text-align: center; color: #444; }
+        #effect p { margin: 1em 2em 1em 2em; text-align: center; }
+      </style>
+  
+      <script> 
+        $(function() {
+  
+          function runEffect() {
+            $( "#effect" ).hide(); 
+  
+            // get effect type
+            var selectedEffect = $( "#effectTypes" ).val();
+  
+            // most effect types need no options passed by default
+            var options = {};
+  
+            // some effects have required parameters
+            if ( selectedEffect === "scale" ) {
+              options = { percent: 100 }; 
+            } else if ( selectedEffect === "size" ) {
+              options = { to: { width: 280, height: 185 } }; 
+            }
+  
+            // run the effect
+            $( "#effect" ).show( selectedEffect, options, 500 );
+          };
+  
+          // set effect from select menu value
+          $( "#button" ).click(function() {
+            runEffect(); 
+            return false; 
+          });
+        }); 
+      </script>
+  
+      <div class="demo">
+  
+        <div class="toggler">
+  	<div id="effect" class="ui-widget-content ui-corner-all">
+  	  <h3 class="ui-widget-header ui-corner-all">Hello World</h3>
+  	  <p>
+  	    This box shows various animation effects
+  	    <br/>when you select an effect from below
+  	    <br/>then click the "Run Effect" button.
+  	  </p>
+  	</div>
+        </div>
+  
+        <select name="effects" id="effectTypes">
+  	<option value="blind">Blind Effect</option>
+  	<option value="bounce">Bounce Effect</option>
+  	<option value="clip">Clip Effect</option>
+  	<option value="drop">Drop Effect</option>
+  	<option value="explode">Explode Effect</option>
+  	<option value="fold">Fold Effect</option>
+  	<option value="highlight">Highlight Effect</option>
+  	<option value="puff">Puff Effect</option>
+  	<option value="pulsate">Pulsate Effect</option>
+  	<option value="scale">Scale Effect</option>
+  	<option value="shake">Shake Effect</option>
+  	<option value="slide">Slide Effect</option>
+        </select>
+  
+        <a href="#" id="button" class="ui-state-default ui-corner-all">Run The Effect</a>
+
+      </div>
+
+    </div>
+
+    <!-- END EFFECTS SECTION -->
+
+
+    <!-- BEGIN SCROLL SECTION -->
+
+    <div class="demo">
+
+      <h2>Scroll Side To Side</h2>
+
+      <style>
+        #demo-frame > div.demo { padding: 10px !important; }
+  	#scrollsidetoside { margin-bottom: 2em; } /* The margin-bottom is the scroll-bar-wrap height */
+        .scroll-pane { overflow: auto; width: 99%; float:left; }
+        .scroll-content { width: 1220px; float: left; }
+        .scroll-content-item { width: 100px; height: 100px; float: left; margin: 10px; font-size: 1.5em; line-height: 96px; text-align: center; color: #666; }
+        * html .scroll-content-item { display: inline; } /* IE6 float double margin bug */
+        .scroll-bar-wrap { clear: left; padding: 0 4px 0 2px; margin: 0 -1px -1px -1px; }
+        .scroll-bar-wrap .ui-slider { background: none; border:0; height: 2em; margin: 0 auto;  }
+        .scroll-bar-wrap .ui-handle-helper-parent { position: relative; width: 100%; height: 100%; margin: 0 auto; }
+        .scroll-bar-wrap .ui-slider-handle { top:.2em; height: 1.5em; }
+        .scroll-bar-wrap .ui-slider-handle .ui-icon { margin: -8px auto 0; position: relative; top: 50%; }
+      </style>
+  
+      <script>
+        $(function() {
+          //scrollpane parts
+          var scrollPane = $( ".scroll-pane" );
+          var scrollContent = $( ".scroll-content" );
+                
+          //build slider
+          var scrollbar = $( ".scroll-bar" ).slider({
+            slide: function( event, ui ) {
+              if ( scrollContent.width() > scrollPane.width() ) {
+                scrollContent.css( "margin-left", Math.round(
+                  ui.value / 100 * ( scrollPane.width() - scrollContent.width() )
+                ) + "px" );
+              } else {
+                scrollContent.css( "margin-left", 0 );
+              }
+            }
+          });
+                
+          //append icon to handle
+          var handleHelper = scrollbar.find( ".ui-slider-handle" )
+
+          .mousedown(function() {
+            scrollbar.width( handleHelper.width() );
+          })
+
+          .mouseup(function() {
+           scrollbar.width( "100%" );
+          })
+          .append( "<span class='ui-icon ui-icon-grip-dotted-vertical'></span>" )
+          .wrap( "<div class='ui-handle-helper-parent'></div>" ).parent();
+                
+          //change overflow to hidden now that slider handles the scrolling
+          scrollPane.css( "overflow", "hidden" );
+                
+          //size scrollbar and handle proportionally to scroll distance
+          function sizeScrollbar() {
+            var remainder = scrollContent.width() - scrollPane.width();
+            var proportion = remainder / scrollContent.width();
+            var handleSize = scrollPane.width() - ( proportion * scrollPane.width() );
+            scrollbar.find( ".ui-slider-handle" ).css({
+              width: handleSize,
+              "margin-left": -handleSize / 2
+            });
+            handleHelper.width( "" ).width( scrollbar.width() - handleSize );
+          }
+                
+          //reset slider value based on scroll content position
+          function resetValue() {
+            var remainder = scrollPane.width() - scrollContent.width();
+            var leftVal = scrollContent.css( "margin-left" ) === "auto" ? 0 :
+              parseInt( scrollContent.css( "margin-left" ) );
+            var percentage = Math.round( leftVal / remainder * 100 );
+            scrollbar.slider( "value", percentage );
+          }
+                
+          //if the slider is 100% and window gets larger, reveal content
+          function reflowContent() {
+            var showing = scrollContent.width() + parseInt( scrollContent.css( "margin-left" ), 10 );
+            var gap = scrollPane.width() - showing;
+            if ( gap > 0 ) {
+              scrollContent.css( "margin-left", parseInt( scrollContent.css( "margin-left" ), 10 ) + gap );
+            }
+          }
+                
+          //change handle position on window resize
+          $( window ).resize(function() {
+            resetValue();
+            sizeScrollbar();
+            reflowContent();
+          });
+          //init scrollbar size
+          setTimeout( sizeScrollbar, 10 );//safari wants a timeout
+        });
+
+      </script>
+
+      <div id="scrollsidetoside" style="overflow: hidden;" class="scroll-pane ui-widget ui-widget-header ui-corner-all">
+        <div style="margin-left: 0px;" class="scroll-content">
+          <div class="scroll-content-item ui-widget-header">1</div>
+          <div class="scroll-content-item ui-widget-header">2</div>
+          <div class="scroll-content-item ui-widget-header">3</div>
+          <div class="scroll-content-item ui-widget-header">4</div>
+          <div class="scroll-content-item ui-widget-header">5</div>
+          <div class="scroll-content-item ui-widget-header">6</div>
+          <div class="scroll-content-item ui-widget-header">7</div>
+          <div class="scroll-content-item ui-widget-header">8</div>
+          <div class="scroll-content-item ui-widget-header">9</div>
+          <div class="scroll-content-item ui-widget-header">10</div>
+        </div>
+
+	<div class="scroll-bar-wrap ui-widget-content ui-corner-bottom">
+	  <div class="scroll-bar"> </div>
+	</div>
+
+      </div>
+
+    </div>
+  
+    <!-- END SCROLL SECTION -->
+
+
+    <!-- BEGIN CALENDAR SECTION -->
+
+    <div class="demo">
+
+      <h2>Calendar</h2>
+
+      <script>
+
+        $(function() {
+          $( "#calendar" ).datepicker();
+        });
+
+      </script>
+  
+      <div id="calendar"> </div>
+
+    </div>
+
+    <!-- END CALENDAR SECTION -->
+
+    
+    <!-- BEGIN ICONS SECTION -->
+
+    <div class="demo">
+
+      <h2>Icons</h2>
+
+      <img width="256" height="240" src="lib/jqueryui/1.8.16/css/smoothness/images/ui-icons_222222_256x240.png"/>
+
+    </div>
+
+    <!-- END ICONS SECTION -->
+
+
+    <!-- BEGIN SORT GRID SECTION -->
+
+    <div class="demo">
+
+      <h2>Sort Grid</h2>
+
+      <style>
+  
+        #sortgrid { list-style-type: none; margin: 0; padding: 0; }
+        #sortgrid li { margin: 0 3px 3px 0; padding: 2px; float: left; width: 80px; height: 80px; font-size: 2.2em; text-align: center; }
+  
+      </style>
+  
+      <script>
+  
+        $(function() {
+          $( "#sortgrid" ).sortable();
+          $( "#sortgrid" ).disableSelection();
+        });
+  
+      </script>
+  
+      <ul id="sortgrid">
+        <li class="ui-state-default">1</li>
+        <li class="ui-state-default">2</li>
+        <li class="ui-state-default">3</li>
+        <li class="ui-state-default">4</li>
+        <li class="ui-state-default">5</li>
+        <li class="ui-state-default">6</li>
+        <li class="ui-state-default">7</li>
+        <li class="ui-state-default">8</li>
+        <li class="ui-state-default">9</li>
+        <li class="ui-state-default">10</li>
+        <li class="ui-state-default">11</li>
+        <li class="ui-state-default">12</li>
+        <li class="ui-state-default">13</li>
+        <li class="ui-state-default">14</li>
+        <li class="ui-state-default">15</li>
+        <li class="ui-state-default">16</li>
+        <li class="ui-state-default">17</li>
+        <li class="ui-state-default">18</li>
+      </ul>
+
+    </div>
+
+    <!-- END SORT GRID SECTION -->
+
+
+    <!-- BEGIN JSON SECTION -->
+
+    <div class="demo">
+
+      <h2>Get JSON</h2>
+  
+      <script>
+  
+        $.getJSON(
+          "getjson.json", 
+          function(json) {
+            var items = [];
+            $.each(json, function(key, val) {
+              items.push('<p><b>' + key + '</b>: ' + val + '</p>');
+            });
+            $('<div/>', {
+              html: items.join('')
+            }).appendTo('#getjson');
+          }
+        );
+  
+      </script>
+  
+      <div id="getjson"> 
+      </div>
+
+    </div>
+
+    <!-- END JSON SECTION -->
+
+  
+    <!-- BEGIN DATE PICKER SECTION -->
+
+    <div class="demo">
+
+      <h2>Date Picker with Calendar Popup</h2>
+  
+      <script>
+  
+        $(function() {
+          $( "#datepicker" ).datepicker();
+        });
+  
+      </script>
+  
+      <form>
+        <input id="datepicker" type="text"/>
+        <br/>Click in the box to pick a date.
+      </form>
+
+    </div>
+
+    <!-- END DATE PICKER SECTION -->
+
+
+    <!-- BEGIN AUTOCOMPLETE SECTION -->
+
+    <div class="demo" id="autocomplete_demo">
+
+      <h2>Word Picker with Autocomplete</h2>
+
+      <style>
+
+	.ui-autocomplete {
+	  max-height: 8em;
+	  overflow-y: auto;
+	  overflow-x: hidden;
+	  padding-right: 20px;
+	}
+
+      </style>
+
+      <script>
+
+	$(function() {
+	var availableTags = [
+ 	  "able", "achieve", "acoustics", "action", "activity", "actor",
+	  "advice", "aftermath", "afternoon", "afterthought",
+	  "airplane", "airport", "alarm", "anger", "animal", "answer",
+	  "apparel", "apple", "appliance", "arithmetic", "arm", "army",
+	  "aunt", "badge", "bait", "ball", "balloon", "banana",
+	  "baseball", "basket", "basketball", "bat", "bath", "battle",
+	  "bead", "beam", "bean", "beast", "bed", "bedroom", "beef",
+	  "beetle", "beggar", "beginner", "believe", "bike", "bird",
+	  "birthday", "bomb", "book", "book", "boot", "border",
+	  "boundary", "boy", "boy", "brain", "branch", "bread",
+	  "breakfast", "brick", "brother", "brush", "bubble", "bucket",
+	  "bun", "bushes", "butter ", "cabbage", "cable", "cactus",
+	  "cake", "calculator", "calendar", "camp", "can", "cannon",
+	  "cap", "caption", "car", "carpenter", "cast", "cat", "cattle",
+	  "cave", "celery", "cellar", "cemetery", "cent", "channel",
+	  "cherries", "cherry", "chicken", "children", "chin", "circle",
+	  "clam", "class", "cloth", "clover", "club", "coach", "coast",
+	  "cobweb", "coil", "corn", "cow", "cracker", "crate", "crayon",
+	  "cream", "creator", "creature", "crib", "crook", "crow",
+	  "crowd", "crown", "cub", "cup", "dad", "daughter", "day",
+	  "deer", "desk", "dime", "dinner", "dirt", "dock", "doctor",
+	  "dog", "doll", "donkey", "downtown", "dress", "drug", "drum",
+	  "dust", "dust", "earthquake", "education", "eggnog", "elbow",
+	  "eye", "face", "family", "fan", "fang ", "father", "faucet",
+	  "feast", "feather", "feet", "field", "fifth", "fight",
+	  "finger", "fireman", "flag", "flavor", "flesh", "flock",
+	  "flower", "fog", "food", "frame", "friction", "frog", "fruit",
+	  "fuel", "furniture", "galley", "game", "gate", "geese",
+	  "ghost", "giraffe", "girl", "glove", "glue", "goldfish",
+	  "goose", "goose", "governor", "grade", "grain", "grandfather",
+	  "grandmother", "grape", "grass", "guide", "guitar", "gun",
+	  "hair", "haircut", "hall", "hat", "health", "heart", "heat",
+	  "hen", "hill", "hobbies", "holiday", "home", "honey", "hook",
+	  "hope", "horn", "horse", "hose", "hot", "hydrant", "icicle",
+	  "idea", "income", "island", "jail", "jam", "jar", "jeans",
+	  "jellyfish", "joke", "judge", "juice", "kiss", "kite", "kite",
+	  "kitten", "kitten", "laborer", "lace", "ladybug", "lake",
+	  "lamp", "language", "lawyer", "lettuce", "light", "linen",
+	  "loaf", "lock", "locket", "lumber", "lunch", "lunchroom",
+	  "magic", "maid", "mailbox", "man", "map", "marble", "mask",
+	  "meal", "meal", "meat", "men", "mice", "milk", "minister",
+	  "mint", "mitten", "mom", "money", "month", "moon", "morning",
+	  "mother", "mother", "mountain", "music", "name", "nest",
+	  "north", "nose", "notebook", "number", "oatmeal", "ocean",
+	  "owl", "pail", "pail", "pan", "pancake", "parent", "park",
+	  "partner", "passenger", "patch", "pear", "pear", "pen",
+	  "pencil", "pest", "pet", "pickle", "picture", "pie", "pig",
+	  "plane", "plant", "plantation", "plastic", "playground",
+	  "pleasure", "plot", "pocket", "poison", "police", "pollution",
+	  "popcorn", "pot", "queen", "quicksand", "quiet", "quilt",
+	  "rabbit", "railway", "rain", "rainstorm", "rake", "rat",
+	  "recess", "reward", "riddle", "rifle", "river", "road",
+	  "robin", "rock", "room", "rose", "route", "sack", "sail",
+	  "scale", "scale", "scarecrow", "scarf", "scene", "scent",
+	  "sea", "seashore", "seed", "shape", "sheet", "shoe", "shop",
+	  "show", "sidewalk", "sink", "sister", "skate", "slave",
+	  "sleet", "smoke", "snail", "snake", "snow", "soap", "soda",
+	  "sofa", "son", "song", "space", "spark", "spoon", "spot",
+	  "spy", "squirrel", "stage", "star", "station", "step", "stew",
+	  "stove", "stranger", "straw", "stream", "street", "string",
+	  "sugar", "suit", "summer", "summer", "sun", "sweater",
+	  "swing", "table", "tank", "team", "temper", "tent",
+	  "territory", "test", "texture", "thread", "thrill", "throat",
+	  "throne", "throne", "tiger", "title", "toad", "toe", "toes",
+	  "toothbrush", "toothpaste", "town", "trail", "tramp", "tray",
+	  "treatment", "tree", "trick", "trip", "tub", "turkey", "twig",
+	  "uncle", "underwear", "vacation", "van", "vase", "vegetable",
+	  "veil", "vein", "vest", "visitor", "volcano", "volleyball",
+	  "voyage", "water", "water", "wealth", "weather", "week",
+	  "wheel", "wilderness", "wing", "winter", "winter", "wish",
+	  "woman", "women", "wood", "wool", "wren", "wrench", "wrist",
+	  "writer", "yard", "year", "zebra"
+	]; 
+
+	$( "#tags" ).autocomplete({
+	source: availableTags
+	});
+	});
+	
+      </script>
+        
+      <div class="ui-widget">
+ 	<input aria-haspopup="true" aria-autocomplete="list" role="textbox" autocomplete="off" class="ui-autocomplete-input" id="tags"/>
+      </div>
+
+      Type letters in the box to find matching words.
+
+    </div>
+
+    <!-- END AUTOCOMPLETE SECTION -->
+
+
+    <!-- BEGIN SORT LIST SECTION -->
+
+    <div class="demo">
+
+      <h2>Sort List &amp; Open Windowshade</h2>
+  
+      <style>
+  
+        #sortopenlist { list-style-type: none; margin: 0; padding: 0; width: 100%; }
+        #sortopenlist > li { margin: 0 3px 3px 3px; padding: 0.4em; font-size: 1.2em; color: #222; }
+        #sortopenlist > li > .ui-icon { float:left; margin-top: 2px; }
+        
+        #sortopenlist > li > .open {
+        padding-right: 5px;
+        }
+  
+        #sortopenlist > li > .title {
+        color: #222;
+        }
+  
+        #sortopenlist > li > .detail {
+          background: white;
+          border: 1px solid #aaa;
+          margin: 0.5em 0.2em 0px 34px;
+          padding: 0.4em;
+        }
+  
+      </style>
+  
+      <script>
+  
+        $(function() {
+          $('#sortopenlist').sortable({axis:'y', cancel:'.title,.detail,.ui-icon-triangle-1-e'});
+          $('#sortopenlist > li > .detail').hide().addClass("ui-corner-all");
+          $('#sortopenlist > li').addClass("ui-state-default ui-corner-all");
+          $("#sortopenlist > li > .title, #sortopenlist > li > .ui-icon-triangle-1-e").click(function(e) {
+            var li = $(e.target).closest('li');
+            //if (li.parent().has('.ui-sortable-helper')){
+            li.children('.open').toggleClass('ui-icon-triangle-1-e ui-icon-triangle-1-s');
+            li.children('.detail').toggle();
+            return false;
+          });
+        });
+  
+      </script>
+  
+      <ul id="sortopenlist" >
+        <li>
+  	<span class="drag ui-icon ui-icon-arrowthick-2-n-s"> </span>
+  	<span class="open ui-icon ui-icon-triangle-1-e"> </span>
+  	<div class="title">First Item</div>
+  	<div class="detail">First section of content goes here.</div>
+        </li>
+        <li>
+  	<span class="drag ui-icon ui-icon-arrowthick-2-n-s"> </span>
+  	<span class="open ui-icon ui-icon-triangle-1-e"> </span>
+  	<div class="title">Second Item</div>
+  	<div class="detail">Second section of content goes here.</div>
+        </li>
+        <li>
+  	<span class="drag ui-icon ui-icon-arrowthick-2-n-s"> </span>
+  	<span class="open ui-icon ui-icon-triangle-1-e"> </span>
+  	<div class="title">Third Item</div>
+  	<div class="detail">Third section of content goes here.</div>
+        </li>
+        <li>
+  	<span class="drag ui-icon ui-icon-arrowthick-2-n-s"> </span>
+  	<span class="open ui-icon ui-icon-triangle-1-e"> </span>
+  	<div class="title">Fourth Item</div>
+  	<div class="detail">Fourth section of content goes here.</div>
+        </li>
+      </ul>
+
+    </div>
+
+    <!-- END SORT LIST SECTION -->
+
+
+    <!-- BEGIN DIALOG SECTION -->
+
+    <div class="demo">
+
+      <h2>Dialog</h2>
+  
+      <script>
+  
+        $.fx.speeds._default = 1000; // increase the default animation speed to exaggerate the effect
+        $(function() {
+          $( "#dialog" ).dialog({
+            autoOpen: false
+          });
+          $( "#dialogopen" ).click(function() {
+            $( "#dialog" ).dialog( "open" );
+            return false;
+          });
+        });
+  
+      </script>
+  
+      <div id="dialog" title="Hello World">
+  	<p>This is a dialog which is useful for displaying important information to the user.</p>
+  	<p>The dialog window can be moved and resized by dragging.</p>
+  	<p>To close the dialog, click the 'x' icon at upper right.</p>
+      </div>
+  
+      <button id="dialogopen">Open Dialog</button>
+  
+    </div>
+
+    <!-- END DIALOG SECTION -->
+
+
+    <h2>Credits</h2>
+
+    <p>SixArm</p>
+
+    <p><a href="http://sixarm.com">http://sixarm.com</a></p>
+
+  </body>
+
+</html>
+
+

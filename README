@@ -1,0 +1,25 @@
+= SixArm.com » jQuery UI » Demo
+
+Author:: Joel Parker Henderson, joel@joelparkerhenderson.com
+Copyright:: Copyright (c) 2009-2011 Joel Parker Henderson
+License:: See LICENSE.txt file
+
+Demonstrate jQuery UI toolkit programming:
+
+  * Tabs
+  * Accordion
+  * Progress Bar
+  * Color Picker with Sliders
+  * Effects
+  * Scroll Side To Side
+  * Calendar
+  * Icons
+  * Sort Grid
+  * Get JSON
+  * Date Picker with Calendar Popup
+  * Word Picker with Autocomplete
+  * Sort List & Open Windowshade
+
+This repository also has a "lib" directory that has the 
+library files for jQuery and jQuery UI, so you can load
+the index.html page and have it display correctly.
